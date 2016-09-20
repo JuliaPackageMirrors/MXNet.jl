@@ -218,12 +218,29 @@ end
 
 """
 """
-function fit(self::AbstractModule)
+function fit(self::AbstractModule, train_data)
+
+  error("Not yet implemented")
 end
 
 """
 """
-function predict(self::AbstractModule)
+function predict(self::AbstractModule, eval_data;
+                 num_batch=nothing, merge_batches=true, reset=true)
+  @assert isbinded(self) && isinitialized(self)
+
+  reset && reset!(eval_data)
+
+  for (nbatch, eval_batch) in enumerate(eval_data)
+    if num_batch !== nothing && nbatch == num_back
+      break
+    end
+    forward(self, eval_batch, is_train=false)
+
+    outputs = get_outputs(self)
+
+    error("Not yet implemented")
+  end
 end
 
 """
